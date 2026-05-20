@@ -1,0 +1,336 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #ffb59d;
+  --secondary: #7bdb85;
+  --accent: #59d5fb;
+  --bg: #131313;
+  --surface: #201f1f;
+  --text: #e5e2e1;
+  --muted: #e1bfb5;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.07), 0 8px 24px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.10), 0 20px 48px rgba(0, 0, 0, 0.08);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ─────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Bebas Neue", sans-serif;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Stitch design system — hero background ─────────────── */
+.hero-bg {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(10, 10, 10, 0.4),
+      rgba(10, 10, 10, 0.9)
+    ),
+    url(https://lh3.googleusercontent.com/aida-public/AB6AXuAs8Zb2sabgLqytbm4RENAB99s1gOygK9PPW-SQ0dxTahdnNiBfB6MUnl2Xmr-WnhWONT9OhW3VAIGo5M5qTlZxjQI03Kh56nJ0CpWSMhvN9JIItqBTJic57kecyn5lFVkQFEsYGgulaklatvk0RozJ48L3erT7HoRIH3EBc9tLf-3B4RfGUVPNoFyRxGr4RA9wKzcR85NWZ-VGp3rJLD0PZwQZD8TVKxrF9Hb0rwBrHfd2NP4f8UvRo1MsWmiD4OMKqhyN9rckmT2E);
+  background-size: cover;
+  background-position: center;
+}
+
+/* ─── Stitch design system — nav link underline ──────────── */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Stitch design system — glassmorphism badge ─────────── */
+.badge {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Scroll reveal ──────────────────────────────────────── */
+/* Visible by default — JS adds .is-hidden before IntersectionObserver fires */
+.reveal {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-hidden {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.reveal.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ─── @keyframes ─────────────────────────────────────────── */
+
+/* Page entry fade */
+@keyframes pageFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: pageFade 0.4s ease;
+}
+
+/* Toast slide-in */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.toast-enter {
+  animation: slideInRight 0.35s var(--ease-smooth) both;
+}
+
+/* Shimmer skeleton loader */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #2a2a2a 25%,
+    #333333 50%,
+    #2a2a2a 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Subtle pulse (trust badges, loading states) */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Float — used for hero product image */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ─── Button & interactive utilities ─────────────────────── */
+.btn-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.btn-lift:active {
+  transform: translateY(0px);
+  box-shadow: none;
+}
+
+/* ─── Card hover ─────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+}
+
+/* ─── Brand component classes ────────────────────────────── */
+.btn-primary {
+  background-color: var(--primary);
+  color: #0a0a0a;
+  border-radius: 16px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #ffa07a;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text);
+  border-radius: 16px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.card {
+  background-color: var(--surface);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ─── Form inputs ────────────────────────────────────────── */
+input,
+select,
+textarea {
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 0.625rem 1rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+/* ─── Scrollbar styling ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ─── Selection ──────────────────────────────────────────── */
+::selection {
+  background-color: var(--primary);
+  color: #0a0a0a;
+}
+
+/* ─── Material Symbols icon utility ─────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  vertical-align: middle;
+  user-select: none;
+}
+
+/* ─── Mobile helpers ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .stack-mobile {
+    flex-direction: column !important;
+  }
+
+  .full-mobile {
+    width: 100% !important;
+  }
+}
+
+/* ─── Focus visible (accessibility) ─────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
